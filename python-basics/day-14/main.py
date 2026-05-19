@@ -4,8 +4,16 @@ from sqlalchemy import create_engine, text
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 from datetime import datetime, timedelta, timezone
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 engine = create_engine("postgresql://postgres:1111@localhost/tolet")
 SECRET_KEY = "tolet-secret-key"
