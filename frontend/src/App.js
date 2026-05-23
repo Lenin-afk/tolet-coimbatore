@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import Navbar from './components/Navbar';
 // TODO: Import PostListing
 import PostListing from './pages/PostListing';
+import MapView from './pages/MapView';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/post-listing" element={<PostListing/>} />       
+        <Route path="/post-listing" element={<PostListing/>} />
+        {/* TODO: Add route for "/map" pointing to MapView  */}
+        <Route path="/map" element={<MapView/>} />
       </Routes>
     </BrowserRouter>
   );
