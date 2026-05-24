@@ -5,6 +5,7 @@ from passlib.context import CryptContext
 from jose import jwt, JWTError
 from datetime import datetime, timedelta, timezone
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 app.add_middleware(
@@ -15,7 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-engine = create_engine("postgresql://postgres:1111@localhost/tolet")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:1111@localhost/tolet")
+engine = create_engine(DATABASE_URL)
 SECRET_KEY = "tolet-secret-key"
 ALGORITHM = "HS256"
 
