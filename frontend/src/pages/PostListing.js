@@ -16,7 +16,7 @@ function PostListing() {
     // with body: { title, rent, area, contact }
     // TODO: Set message to response.message or response.error
     const token=localStorage.getItem("token")
-    fetch(("http://127.0.0.1:8000/listings"),{
+    fetch(("https://tolet-coimbatore-production.up.railway.app/listings"),{
         method:  "POST",
         headers: {"Content-Type":"application/json", token: token},
         body: JSON.stringify({title, rent, area, contact})

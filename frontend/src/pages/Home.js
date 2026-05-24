@@ -11,7 +11,7 @@ function Home() {
 
   useEffect(() => {
     // TODO: Fetch listings from backend
-    fetch("http://127.0.0.1:8000/listings")
+    fetch("https://tolet-coimbatore-production.up.railway.app/listings")
     .then((response)=>
     {
       return response.json()
