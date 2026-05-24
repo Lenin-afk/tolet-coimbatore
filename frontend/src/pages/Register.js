@@ -11,7 +11,7 @@ function Register() {
     // TODO: POST to "http://127.0.0.1:8000/register"
     // with body: { username, password }
     // TODO: Get response JSON and set message to response.message or response.error
-    fetch(("https://tolet-coimbatore-production.up.railway.app/register"), {
+    fetch(("https://tolet-coimbatore.up.railway.app/register"), {
         method:"POST",
         headers:{"Content-Type": "application/json"},
         body:JSON.stringify({username,password})

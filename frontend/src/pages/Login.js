@@ -12,7 +12,7 @@ function Login() {
     // with body: { username, password }
     // TODO: If response has token, save it using localStorage.setItem("token", token)
     // TODO: Set message to "Login successful!" or response.error
-    fetch(("https://tolet-coimbatore-production.up.railway.app/login"),{
+    fetch(("https://tolet-coimbatore.up.railway.app/login"),{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({username,password})

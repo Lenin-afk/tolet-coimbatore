@@ -11,7 +11,7 @@ function Home() {
 
   useEffect(() => {
     // TODO: Fetch listings from backend
-    fetch("https://tolet-coimbatore-production.up.railway.app/listings")
+    fetch("https://tolet-coimbatore.up.railway.app/listings")
     .then((response)=>
     {
       return response.json()
