@@ -1,11 +1,9 @@
 import { useState } from 'react';
 
 function Login() {
-  // TODO: Add state for username and password
-  // TODO: Add state for "message" with default value ""
-  const [username,SetUsername]=useState("")
-  const [password,SetPassword]=useState("")
-  const [message,SetMessage]=useState("")
+  const [username, SetUsername] = useState("");
+  const [password, SetPassword] = useState("");
+  const [message, SetMessage] = useState("");
 
   const handleLogin = async () => {
     // TODO: POST to "http://127.0.0.1:8000/login"
@@ -33,29 +31,35 @@ function Login() {
 
   };
 
+
   return (
-    <div>
-      <h2>Login</h2>
-      {/* TODO: Add input for username */}
-      {/* TODO: Add input for password */}
-      {/* TODO: Add button that calls handleLogin */}
-      {/* TODO: Show message */}
-      <input 
-        type="text"
-        placeholder="Type your name here"
-        onChange={(e)=>{
-            SetUsername(e.target.value);
-        }}
-      />
-      <input 
-        type="password"
-        placeholder="Type your password here"
-        onChange={(e)=>{
-            SetPassword(e.target.value);
-        }}
-      />
-      <button onClick={handleLogin}>Login</button>
-      <p>{message}</p>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold text-blue-700 mb-6">Login</h2>
+        {/* TODO: Add username input with className="w-full p-3 border border-gray-300 rounded-lg mb-4" */}
+        {/* TODO: Add password input type="password" with same className */}
+        {/* TODO: Add button with className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700" */}
+        {/* TODO: Show message in p with className="text-center mt-4 text-red-500" */}
+        <input 
+          type="text"
+          placeholder="Type your name here"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetUsername(e.target.value);
+          }}
+        />
+        <input 
+          type="password"
+          placeholder="Type your password here"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetPassword(e.target.value);
+          }}
+        />
+        <button onClick={handleLogin}
+        className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">Login</button>
+        <p className="text-center mt-4 text-red-500" >{message}</p>
+      </div>
     </div>
   );
 }
