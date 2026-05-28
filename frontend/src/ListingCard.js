@@ -18,7 +18,6 @@ function ListingCard({ title, rent, area, contact, photo_url }) {
       <p className="text-gray-500 text-sm">{area}</p>
       <p className="text-green-600 font-semibold mt-2">Rent: ₹{rent} / month</p>
       <p className="text-gray-700 mt-1">Contact: {contact}</p>
-      <p>{photo_url}</p>
     </div>
   );
 }
