@@ -6,6 +6,18 @@ from jose import jwt, JWTError
 from datetime import datetime, timedelta, timezone
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import cloudinary
+import cloudinary.uploader
+import os
+from fastapi import FastAPI, Header, UploadFile, File
+from dotenv import load_dotenv
+load_dotenv()
+
+cloudinary.config(
+    cloud_name = os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key = os.getenv("CLOUDINARY_API_KEY"),
+    api_secret = os.getenv("CLOUDINARY_API_SECRET")
+)
 
 app = FastAPI()
 app.add_middleware(
@@ -155,3 +167,15 @@ def delete_listing(id: int, token: str = Header(...)):
                 return {"error": "Listing not found"}
     except JWTError:
         return {"error": "Invalid token"}
+
+
+# TODO: Create a POST route at "/upload-photo" that:
+# accepts a file using UploadFile
+# uploads it to Cloudinary using cloudinary.uploader.upload()
+# returns {"photo_url": result["secure_url"]}
+
+@app.post("/upload-photo")
+async def upload_photo(file: UploadFile = File(...)):
+    contents= await file.read()
+    result=cloudinary.uploader.upload(contents)
+    return {"photo_url": result["secure_url"]}
