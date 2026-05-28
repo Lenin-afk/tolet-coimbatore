@@ -53,7 +53,8 @@ function Home() {
             title={listing.title}
             rent={listing.rent}
             area={listing.area}
-            contact={listing.contact} 
+            contact={listing.contact}
+            photo_url={listing.photo_url} 
           />
         ))}
       </div>

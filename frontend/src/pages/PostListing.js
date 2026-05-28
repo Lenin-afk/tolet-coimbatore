@@ -7,19 +7,33 @@ function PostListing() {
   const [rent, SetRent] = useState("")
   const [area, SetArea] = useState("")
   const [contact, SetContact] = useState("")
+  const [photo, SetPhoto] = useState(null);
   const [message,SetMessage] = useState("")
 
   const handleSubmit = async () => {
-    // TODO: Get token from localStorage.getItem("token")
-    // TODO: POST to "http://127.0.0.1:8000/listings"
-    // with Authorization header: token
-    // with body: { title, rent, area, contact }
-    // TODO: Set message to response.message or response.error
+    // TODO: If photo exists, create a FormData object
+    // append photo to it and POST to "/upload-photo"
+    // get photo_url from response
+
+    // TODO: POST to "/listings" with title, rent, area, contact and photo_url
+    // with Authorization header token
     const token=localStorage.getItem("token")
+    let photo_url=""
+    if (photo){
+      const formData= new FormData()
+      formData.append("file", photo)
+      const response = await fetch(("https://tolet-coimbatore.up.railway.app/upload-photo"),{
+        method: "POST",
+        body: formData
+      })
+      const data = await response.json()
+      photo_url= data.photo_url
+    }
+
     fetch(("https://tolet-coimbatore.up.railway.app/listings"),{
         method:  "POST",
         headers: {"Content-Type":"application/json", token: token},
-        body: JSON.stringify({title, rent, area, contact})
+        body: JSON.stringify({title, rent, area, contact, photo_url})
     })
     .then((response)=>{
         return response.json()
@@ -37,6 +51,7 @@ function PostListing() {
         {/* TODO: Add rent input type="number" */}
         {/* TODO: Add area input */}
         {/* TODO: Add contact input */}
+        {/* TODO: Add file input that updates photo state */}
         {/* TODO: Add button with className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700" */}
         {/* TODO: Show message */}
         <input 
@@ -69,6 +84,13 @@ function PostListing() {
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
               SetContact(e.target.value);
+          }}
+        />
+        <input 
+          type="file"
+          placeholder="Upload your file"
+          onChange={(e)=>{
+            SetPhoto(e.target.files[0]);
           }}
         />
         <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"

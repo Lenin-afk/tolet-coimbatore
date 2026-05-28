@@ -41,13 +41,14 @@ class UserRequest(BaseModel):
     username: str
     password: str
 
-
 class Listing(BaseModel):
     # TODO: Add title, rent, area, contact fields
     title: str
     rent: int
     area: str
     contact: str
+    # TODO: Add photo_url as optional field with default None photo_url: str = None
+    photo_url: str = None
 
 # --- Auth Helpers ---
 
@@ -127,23 +128,26 @@ def get_listing():
                     "title": i[1],
                     "rent": i[2],
                     "area": i[3],
-                    "contact": i[4]
+                    "contact": i[4],
+                    "photo_url": i[5]
                 }
             )
         return res_list
 
-
+# TODO: Update POST /listings route to also insert photo_url into database
+# UPDATE the INSERT query to include photo_url column
 @app.post("/listings")
 def add_listing(listing: Listing, token: str = Header(...)):
     try:
         username = verify_token(token)
         with engine.connect() as conn:
-            conn.execute(text("INSERT INTO listings (title, rent, area, contact) VALUES (:title, :rent, :area , :contact)"),
+            conn.execute(text("INSERT INTO listings (title, rent, area, contact, photo_url) VALUES (:title, :rent, :area , :contact, :photo_url)"),
                          {
                              "title": listing.title,
                              "rent": listing.rent,
                              "area": listing.area,
-                             "contact": listing.contact
+                             "contact": listing.contact,
+                             "photo_url": listing.photo_url
             })
             conn.commit()
             return {"message": f"Listing added by {username}"}
