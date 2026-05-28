@@ -25,28 +25,33 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {/* TODO: Add input for username that updates state */}
-      {/* TODO: Add input for password that updates state */}
-      {/* TODO: Add button that calls handleRegister on click */}
-      {/* TODO: Show message below button */}
-      <input  
-        type="text"
-        placeholder="Type your name"
-        onChange={(e)=>{
-            SetUsername(e.target.value);
-        }}
-      />
-      <input 
-        type="password"
-        placeholder="Type your password"
-        onChange={(e)=>{
-            SetPassword(e.target.value);
-        }}
-      />
-      <button onClick={handleRegister}>Register</button>
-      <p>{message}</p>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold text-blue-700 mb-6">Register</h2>
+        {/* TODO: Add username input */}
+        {/* TODO: Add password input */}
+        {/* TODO: Add button with green color this time "bg-green-600 hover:bg-green-700" */}
+        {/* TODO: Show message */}
+        <input  
+          type="text"
+          placeholder="Type your name"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetUsername(e.target.value);
+          }}
+        />
+        <input 
+          type="password"
+          placeholder="Type your password"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetPassword(e.target.value);
+          }}
+        />
+        <button className="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg"
+        onClick={handleRegister}>Register</button>
+        <p className="text-center mt-4 text-red-500">{message}</p>
+      </div>
     </div>
   );
 }

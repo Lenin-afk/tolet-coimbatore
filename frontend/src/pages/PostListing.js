@@ -30,44 +30,51 @@ function PostListing() {
   };
 
   return (
-    <div>
-      <h2>Post a Listing</h2>
-      {/* TODO: Add input for title */}
-      {/* TODO: Add input for rent */}
-      {/* TODO: Add input for area */}
-      {/* TODO: Add input for contact */}
-      {/* TODO: Add button that calls handleSubmit */}
-      {/* TODO: Show message */}
-      <input 
-        type="text"
-        placeholder="Type your title"
-        onChange={(e)=>{
-            SetTitle(e.target.value);
-        }}
-      />
-      <input 
-        type="number"
-        placeholder="Type your rent"
-        onChange={(e)=>{
-            SetRent(e.target.value);
-        }}
-      />
-      <input 
-        type="text"
-        placeholder="Type your area"
-        onChange={(e)=>{
-            SetArea(e.target.value);
-        }}
-      />
-      <input 
-        type="text"
-        placeholder="Type your contact"
-        onChange={(e)=>{
-            SetContact(e.target.value);
-        }}
-      />
-      <button onClick={handleSubmit}>submit</button>
-      <p>{message}</p>
+   <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold text-blue-700 mb-6">Post a Listing</h2>
+        {/* TODO: Add title input */}
+        {/* TODO: Add rent input type="number" */}
+        {/* TODO: Add area input */}
+        {/* TODO: Add contact input */}
+        {/* TODO: Add button with className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700" */}
+        {/* TODO: Show message */}
+        <input 
+          type="text"
+          placeholder="Type your title"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetTitle(e.target.value);
+          }}
+        />
+        <input 
+          type="number"
+          placeholder="Type your rent"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetRent(e.target.value);
+          }}
+        />
+        <input 
+          type="text"
+          placeholder="Type your area"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetArea(e.target.value);
+          }}
+        />
+        <input 
+          type="text"
+          placeholder="Type your contact"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              SetContact(e.target.value);
+          }}
+        />
+        <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
+        onClick={handleSubmit}>Submit</button>
+        <p className="text-center mt-4 text-red-500">{message}</p>
+      </div>
     </div>
   );
 }
