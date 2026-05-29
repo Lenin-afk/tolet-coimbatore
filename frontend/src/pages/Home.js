@@ -47,14 +47,14 @@ function Home() {
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* TODO: Map through filtered and render ListingCard for each */}
+        {/* TODO: Add id={listing.id} to ListingCard */}
         {filtered.map((listing)=>(
           <ListingCard
             key={listing.id}
+            id={listing.id}
             title={listing.title}
             rent={listing.rent}
             area={listing.area}
-            contact={listing.contact}
-            photo_url={listing.photo_url} 
           />
         ))}
       </div>

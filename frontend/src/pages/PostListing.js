@@ -3,12 +3,12 @@ import { useState } from 'react';
 function PostListing() {
   // TODO: Add state for title, rent, area, contact
   // TODO: Add state for "message" with default value ""
-  const [title, SetTitle] = useState("")
-  const [rent, SetRent] = useState("")
-  const [area, SetArea] = useState("")
-  const [contact, SetContact] = useState("")
-  const [photo, SetPhoto] = useState(null);
-  const [message,SetMessage] = useState("")
+  const [title, setTitle] = useState("")
+  const [rent, setRent] = useState("")
+  const [area, setArea] = useState("")
+  const [contact, setContact] = useState("")
+  const [photo, setPhoto] = useState(null);
+  const [message,setMessage] = useState("")
 
   const handleSubmit = async () => {
     // TODO: If photo exists, create a FormData object
@@ -39,7 +39,7 @@ function PostListing() {
         return response.json()
     })
     .then((data)=>{
-        SetMessage(data.message || data.error)
+        setMessage(data.message || data.error)
     })
   };
 
@@ -59,7 +59,7 @@ function PostListing() {
           placeholder="Type your title"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetTitle(e.target.value);
+              setTitle(e.target.value);
           }}
         />
         <input 
@@ -67,7 +67,7 @@ function PostListing() {
           placeholder="Type your rent"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetRent(e.target.value);
+              setRent(e.target.value);
           }}
         />
         <input 
@@ -75,7 +75,7 @@ function PostListing() {
           placeholder="Type your area"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetArea(e.target.value);
+              setArea(e.target.value);
           }}
         />
         <input 
@@ -83,14 +83,14 @@ function PostListing() {
           placeholder="Type your contact"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetContact(e.target.value);
+              setContact(e.target.value);
           }}
         />
         <input 
           type="file"
           placeholder="Upload your file"
           onChange={(e)=>{
-            SetPhoto(e.target.files[0]);
+            setPhoto(e.target.files[0]);
           }}
         />
         <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"

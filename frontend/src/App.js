@@ -7,6 +7,8 @@ import Navbar from './components/Navbar';
 // TODO: Import PostListing
 import PostListing from './pages/PostListing';
 import MapView from './pages/MapView';
+// TODO: Import ListingDetail
+import ListingDetail from './pages/ListingDetail'
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/post-listing" element={<PostListing/>} />
         {/* TODO: Add route for "/map" pointing to MapView  */}
         <Route path="/map" element={<MapView/>} />
+        {/* TODO: Add route for "/listings/:id" pointing to ListingDetail */}
+        <Route path="/listings/:id" element={<ListingDetail/>} />
       </Routes>
     </BrowserRouter>
   );

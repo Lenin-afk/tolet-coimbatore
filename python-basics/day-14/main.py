@@ -183,3 +183,26 @@ async def upload_photo(file: UploadFile = File(...)):
     contents= await file.read()
     result=cloudinary.uploader.upload(contents)
     return {"photo_url": result["secure_url"]}
+
+
+# TODO: Add GET route at "/listings/{id}" that returns single listing by id
+# If not found return {"error": "Listing not found"}
+
+@app.get("/listings/{id}")
+def get_listing(id: int):
+        with engine.connect() as conn:
+            res= conn.execute(text("SELECT * FROM listings WHERE id =:id"),{
+                "id":id
+            })
+            row=res.fetchone()
+            if row:
+                return {
+                    "id": row[0],
+                    "title": row[1],
+                    "rent": row[2],
+                    "area": row[3],
+                    "contact": row[4],
+                    "photo_url": row[5]
+                }
+            else:
+                return {"error": "Listing not found"}

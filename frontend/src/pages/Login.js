@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 function Login() {
-  const [username, SetUsername] = useState("");
-  const [password, SetPassword] = useState("");
-  const [message, SetMessage] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleLogin = async () => {
     // TODO: POST to "http://127.0.0.1:8000/login"
@@ -21,11 +21,11 @@ function Login() {
     .then((data)=>{
         if (data.token) {
             localStorage.setItem("token",data.token)
-            SetMessage("Login successful!")
+            setMessage("Login successful!")
         }
         else {
             localStorage.removeItem("token")
-            SetMessage(data.error)
+            setMessage(data.error)
         }
     })
 
@@ -45,7 +45,7 @@ function Login() {
           placeholder="Type your name here"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetUsername(e.target.value);
+              setUsername(e.target.value);
           }}
         />
         <input 
@@ -53,7 +53,7 @@ function Login() {
           placeholder="Type your password here"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetPassword(e.target.value);
+              setPassword(e.target.value);
           }}
         />
         <button onClick={handleLogin}

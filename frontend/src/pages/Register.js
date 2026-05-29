@@ -3,9 +3,9 @@ import { useState } from 'react';
 function Register() {
   // TODO: Add state for username and password
   // TODO: Add state for "message" with default value ""
-  const [username, SetUsername]= useState("")
-  const [password, SetPassword]= useState("")
-  const [message, SetMessage]= useState("")
+  const [username, setUsername]= useState("")
+  const [password, setPassword]= useState("")
+  const [message, setMessage]= useState("")
 
   const handleRegister = async () => {
     // TODO: POST to "http://127.0.0.1:8000/register"
@@ -20,7 +20,7 @@ function Register() {
         return response.json()
     })
     .then((data)=>{
-        SetMessage(data.message || data.error)
+        setMessage(data.message || data.error)
     })
   };
 
@@ -37,7 +37,7 @@ function Register() {
           placeholder="Type your name"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetUsername(e.target.value);
+              setUsername(e.target.value);
           }}
         />
         <input 
@@ -45,7 +45,7 @@ function Register() {
           placeholder="Type your password"
           className="w-full p-3 border border-gray-300 rounded-lg mb-4"
           onChange={(e)=>{
-              SetPassword(e.target.value);
+              setPassword(e.target.value);
           }}
         />
         <button className="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg"
