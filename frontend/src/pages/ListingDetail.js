@@ -15,8 +15,8 @@ function ListingDetail() {
       // Set loading to false
       // TODO: Convert existing .then fetch to await
       // TODO: Copy your existing fetch logic here
-      const response = await fetch(`https://tolet-coimbatore.up.railway.app/listings/${id}`)
-      const data = await response.json()
+      const response = await fetch(`https://tolet-coimbatore.up.railway.app/listings/${id}`);
+      const data = await response.json();
       setListing(data);
       setLoading(false);
     };

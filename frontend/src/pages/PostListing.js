@@ -11,6 +11,11 @@ function PostListing() {
   const [message,setMessage] = useState("");
   // TODO: Add a state "isError" with default false
   const [isError, setIsError] = useState(false);
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
+
+// TODO: Add lat and lng to the POST body in handleSubmit
+// lat: parseFloat(lat), lng: parseFloat(lng)
 
   const handleSubmit = async () => {
     // TODO: If photo exists, create a FormData object
@@ -35,9 +40,9 @@ function PostListing() {
     const response = await fetch(("https://tolet-coimbatore.up.railway.app/listings"),{
       method:  "POST",
       headers: {"Content-Type":"application/json", token: token},
-      body: JSON.stringify({title, rent: parseInt(rent), area, contact, photo_url})
-    })
-    const data = await response.json()
+      body: JSON.stringify({title, rent: parseInt(rent), area, contact, photo_url, lat: parseFloat(lat), lng: parseFloat(lng)})
+    });
+    const data = await response.json();
       if (data.message){
         setMessage(data.message);
         setIsError(false);
@@ -57,6 +62,8 @@ function PostListing() {
         {/* TODO: Add area input */}
         {/* TODO: Add contact input */}
         {/* TODO: Add file input that updates photo state */}
+        {/* TODO: Add input for lat with placeholder="Latitude (e.g. 11.0168)" */}
+        {/* TODO: Add input for lng with placeholder="Longitude (e.g. 76.9558)" */}
         {/* TODO: Add button with className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700" */}
         {/* TODO: Show message */}
         <input 
@@ -96,6 +103,24 @@ function PostListing() {
           placeholder="Upload your file"
           onChange={(e)=>{
             setPhoto(e.target.files[0]);
+          }}
+        />
+        <input 
+          type="number"
+          step="any"
+          placeholder="Latitude (e.g. 11.0168)"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              setLat(e.target.value);
+          }}
+        />
+        <input 
+          type="number"
+          step="any"
+          placeholder="Longitude (e.g. 76.9558)"
+          className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+          onChange={(e)=>{
+              setLng(e.target.value);
           }}
         />
         <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"

@@ -49,6 +49,9 @@ class Listing(BaseModel):
     contact: str
     # TODO: Add photo_url as optional field with default None photo_url: str = None
     photo_url: str = None
+    # TODO: Add lat and lng as optional float fields with default None
+    lat: float = None
+    lng: float = None
 
 # --- Auth Helpers ---
 
@@ -129,7 +132,9 @@ def get_listing():
                     "rent": i[2],
                     "area": i[3],
                     "contact": i[4],
-                    "photo_url": i[5]
+                    "photo_url": i[5],
+                    "lat": i[6],
+                    "lng": i[7]
                 }
             )
         return res_list
@@ -141,13 +146,16 @@ def add_listing(listing: Listing, token: str = Header(...)):
     try:
         username = verify_token(token)
         with engine.connect() as conn:
-            conn.execute(text("INSERT INTO listings (title, rent, area, contact, photo_url) VALUES (:title, :rent, :area , :contact, :photo_url)"),
+            conn.execute(text("INSERT INTO listings (title, rent, area, contact, photo_url, lat, lng) VALUES (:title, :rent, :area , :contact, :photo_url, :lat, :lng)"),
                          {
                              "title": listing.title,
                              "rent": listing.rent,
                              "area": listing.area,
                              "contact": listing.contact,
-                             "photo_url": listing.photo_url
+                             "photo_url": listing.photo_url,
+                             "lat": listing.lat,
+                             "lng": listing.lng
+
             })
             conn.commit()
             return {"message": f"Listing added by {username}"}
@@ -202,7 +210,9 @@ def get_listing(id: int):
                     "rent": row[2],
                     "area": row[3],
                     "contact": row[4],
-                    "photo_url": row[5]
+                    "photo_url": row[5],
+                    "lat": row[6],
+                    "lng": row[7]
                 }
             else:
                 return {"error": "Listing not found"}
