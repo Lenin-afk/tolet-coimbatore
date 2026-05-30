@@ -1,34 +1,40 @@
 import { useState } from 'react';
+// import useNavigate and call navigate("/")
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  // TODO: Add a state "isError" with default false
+  const [isError, setIsError] = useState(false);
 
   const handleLogin = async () => {
     // TODO: POST to "http://127.0.0.1:8000/login"
     // with body: { username, password }
     // TODO: If response has token, save it using localStorage.setItem("token", token)
     // TODO: Set message to "Login successful!" or response.error
-    fetch(("https://tolet-coimbatore.up.railway.app/login"),{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({username,password})
+    const response = await fetch(("https://tolet-coimbatore.up.railway.app/login"),{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({username,password})
     })
-    .then((response)=>{
-        return response.json()
-    })
-    .then((data)=>{
-        if (data.token) {
-            localStorage.setItem("token",data.token)
-            setMessage("Login successful!")
-        }
-        else {
-            localStorage.removeItem("token")
-            setMessage(data.error)
-        }
-    })
-
+    const data = await response.json()
+      if (data.token) {
+        localStorage.setItem("token",data.token)
+        setMessage("Login successful!")
+        // TODO: When setting message, also set isError
+        // setIsError(true) for errors, setIsError(false) for success
+        setIsError(false)
+        // TODO: Show message first, then navigate after 1.5 seconds
+        setTimeout(() => navigate("/"), 1500);
+      }
+      else {
+        localStorage.removeItem("token")
+        setMessage(data.error)
+        setIsError(true)
+      }
   };
 
 
@@ -58,7 +64,16 @@ function Login() {
         />
         <button onClick={handleLogin}
         className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">Login</button>
-        <p className="text-center mt-4 text-red-500" >{message}</p>
+        {/* TODO: Change message display to: */} 
+        <p 
+          className={
+            isError 
+            ? "text-red-500 text-center mt-4" 
+            : "text-green-500 text-center mt-4"
+          }
+        >
+          {message}
+        </p>
       </div>
     </div>
   );

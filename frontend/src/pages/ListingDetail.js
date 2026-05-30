@@ -7,18 +7,20 @@ function ListingDetail() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // TODO: Fetch single listing from backend using id
-    // "https://your-backend-url/listings/{id}"
-    // Set listing with fetched data
-    // Set loading to false
-    fetch(`https://tolet-coimbatore.up.railway.app/listings/${id}`)
-    .then((response)=>{
-        return  response.json()
-    })
-    .then((data)=>{
-        setListing(data)
-        setLoading(false)
-    })
+    // TODO: Add async arrow function inside useEffect
+    const fetchListing = async () => {
+      // TODO: Fetch single listing from backend using id
+      // "https://your-backend-url/listings/{id}"
+      // Set listing with fetched data
+      // Set loading to false
+      // TODO: Convert existing .then fetch to await
+      // TODO: Copy your existing fetch logic here
+      const response = await fetch(`https://tolet-coimbatore.up.railway.app/listings/${id}`)
+      const data = await response.json()
+      setListing(data);
+      setLoading(false);
+    };
+    fetchListing();
   }, [id]);
 
   if (loading) return <div className="flex justify-center items-center h-screen">

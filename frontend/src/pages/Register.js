@@ -3,25 +3,30 @@ import { useState } from 'react';
 function Register() {
   // TODO: Add state for username and password
   // TODO: Add state for "message" with default value ""
-  const [username, setUsername]= useState("")
-  const [password, setPassword]= useState("")
-  const [message, setMessage]= useState("")
+  const [username, setUsername]= useState("");
+  const [password, setPassword]= useState("");
+  const [message, setMessage]= useState("");
+  // TODO: Add a state "isError" with default false
+  const [isError, setIsError] = useState(false);
 
   const handleRegister = async () => {
     // TODO: POST to "http://127.0.0.1:8000/register"
     // with body: { username, password }
     // TODO: Get response JSON and set message to response.message or response.error
-    fetch(("https://tolet-coimbatore.up.railway.app/register"), {
-        method:"POST",
-        headers:{"Content-Type": "application/json"},
-        body:JSON.stringify({username,password})
+    const response = await fetch(("https://tolet-coimbatore.up.railway.app/register"), {
+      method:"POST",
+      headers:{"Content-Type": "application/json"},
+      body:JSON.stringify({username,password})
     })
-    .then((response)=>{
-        return response.json()
-    })
-    .then((data)=>{
-        setMessage(data.message || data.error)
-    })
+    const data = await response.json()
+      if (data.message){
+        setMessage(data.message);
+        setIsError(false);
+      }
+      else{
+        setMessage(data.error);
+        setIsError(true);
+      }
   };
 
   return (
@@ -50,7 +55,15 @@ function Register() {
         />
         <button className="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg"
         onClick={handleRegister}>Register</button>
-        <p className="text-center mt-4 text-red-500">{message}</p>
+        <p 
+          className={
+            isError 
+            ? "text-red-500 text-center mt-4" 
+            : "text-green-500 text-center mt-4"
+          }
+        >
+          {message}
+        </p>      
       </div>
     </div>
   );

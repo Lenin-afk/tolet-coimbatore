@@ -7,17 +7,16 @@ function Home() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    // TODO: Copy your existing fetch logic here
-    fetch("https://tolet-coimbatore.up.railway.app/listings")
-    .then((response)=>
-    {
-      return response.json()
-    })
-    .then((data)=>
-    {
-      setListings(data)
-      setLoading(false)
-    })
+    // TODO: Add async arrow function inside useEffect
+    const fetchListings = async () => {
+      // TODO: Convert existing .then fetch to await
+      // TODO: Copy your existing fetch logic here
+      const response = await fetch("https://tolet-coimbatore.up.railway.app/listings")
+      const data = await response.json()
+      setListings(data);
+      setLoading(false);
+    };
+    fetchListings();
   }, []);
 
   const filtered = listings.filter(l =>

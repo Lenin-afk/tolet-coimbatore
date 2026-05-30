@@ -3,12 +3,14 @@ import { useState } from 'react';
 function PostListing() {
   // TODO: Add state for title, rent, area, contact
   // TODO: Add state for "message" with default value ""
-  const [title, setTitle] = useState("")
-  const [rent, setRent] = useState("")
-  const [area, setArea] = useState("")
-  const [contact, setContact] = useState("")
+  const [title, setTitle] = useState("");
+  const [rent, setRent] = useState("");
+  const [area, setArea] = useState("");
+  const [contact, setContact] = useState("");
   const [photo, setPhoto] = useState(null);
-  const [message,setMessage] = useState("")
+  const [message,setMessage] = useState("");
+  // TODO: Add a state "isError" with default false
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async () => {
     // TODO: If photo exists, create a FormData object
@@ -20,27 +22,30 @@ function PostListing() {
     const token=localStorage.getItem("token")
     let photo_url=""
     if (photo){
-      const formData= new FormData()
+      const formData = new FormData()
       formData.append("file", photo)
-      const response = await fetch(("https://tolet-coimbatore.up.railway.app/upload-photo"),{
+      const uploadResponse = await fetch(("https://tolet-coimbatore.up.railway.app/upload-photo"),{
         method: "POST",
         body: formData
       })
-      const data = await response.json()
-      photo_url= data.photo_url
+      const uploadData = await uploadResponse.json()
+      photo_url = uploadData.photo_url
     }
 
-    fetch(("https://tolet-coimbatore.up.railway.app/listings"),{
-        method:  "POST",
-        headers: {"Content-Type":"application/json", token: token},
-        body: JSON.stringify({title, rent, area, contact, photo_url})
+    const response = await fetch(("https://tolet-coimbatore.up.railway.app/listings"),{
+      method:  "POST",
+      headers: {"Content-Type":"application/json", token: token},
+      body: JSON.stringify({title, rent: parseInt(rent), area, contact, photo_url})
     })
-    .then((response)=>{
-        return response.json()
-    })
-    .then((data)=>{
-        setMessage(data.message || data.error)
-    })
+    const data = await response.json()
+      if (data.message){
+        setMessage(data.message);
+        setIsError(false);
+      }
+      else{
+        setMessage(data.error);
+        setIsError(true);
+      }
   };
 
   return (
@@ -95,7 +100,15 @@ function PostListing() {
         />
         <button className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
         onClick={handleSubmit}>Submit</button>
-        <p className="text-center mt-4 text-red-500">{message}</p>
+        <p 
+          className={
+            isError 
+            ? "text-red-500 text-center mt-4" 
+            : "text-green-500 text-center mt-4"
+          }
+        >
+          {message}
+        </p>      
       </div>
     </div>
   );
