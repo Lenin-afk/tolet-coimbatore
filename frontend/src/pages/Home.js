@@ -24,9 +24,9 @@ function Home() {
   );
 
   if (loading) return (
-    <div className="flex justify-center items-center h-screen">
-      <p className="text-blue-600 text-xl font-semibold">Loading listings...</p>
-    </div>
+  <div className="flex justify-center items-center h-screen">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600"></div>
+  </div>
   );
 
   return (
@@ -44,19 +44,35 @@ function Home() {
           setSearch(e.target.value);
         }}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* TODO: Map through filtered and render ListingCard for each */}
-        {/* TODO: Add id={listing.id} to ListingCard */}
-        {filtered.map((listing)=>(
-          <ListingCard
-            key={listing.id}
-            id={listing.id}
-            title={listing.title}
-            rent={listing.rent}
-            area={listing.area}
-          />
-        ))}
-      </div>
+      {filtered.length === 0 ? (
+        <div className="text-center py-20">
+          {/* TODO: Add a big emoji like 🏠 */}
+          {/* TODO: Add h2 saying "No listings found" */}
+          {/* TODO: Add p saying "Try searching a different area" */}
+          <div className="text-6xl">🏠</div>
+          <h2 className="text-2xl font-bold text-gray-700 mt-4">
+            No listings found
+          </h2>
+          <p className="text-gray-500 mt-2">
+            Try searching a different area
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* TODO: existing map of ListingCards */}
+          {/* TODO: Map through filtered and render ListingCard for each */}
+          {/* TODO: Add id={listing.id} to ListingCard */}
+          {filtered.map((listing)=>(
+            <ListingCard
+              key={listing.id}
+              id={listing.id}
+              title={listing.title}
+              rent={listing.rent}
+              area={listing.area}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

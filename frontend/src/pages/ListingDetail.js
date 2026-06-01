@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 function ListingDetail() {
   const { id } = useParams();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // TODO: Add async arrow function inside useEffect
@@ -23,9 +25,11 @@ function ListingDetail() {
     fetchListing();
   }, [id]);
 
-  if (loading) return <div className="flex justify-center items-center h-screen">
-    <p className="text-blue-600 text-xl">Loading...</p>
-  </div>;
+  if (loading) return (
+  <div className="flex justify-center items-center h-screen">
+    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600"></div>
+  </div>
+  );
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -34,6 +38,14 @@ function ListingDetail() {
         {/* TODO: Show title in h1 */}
         {/* TODO: Show area, rent, contact */}
         {/* TODO: WhatsApp button - href="https://wa.me/91{listing.contact}" */}
+        {/* TODO: Add useNavigate hook  */}
+        {/* TODO: Add a back button at the top of the detail page  */}
+        <button 
+          onClick={() => navigate(-1)}
+          className="mb-4 text-blue-600 hover:text-blue-800 font-semibold"
+        >
+          ← Back
+        </button>
         {listing.photo_url &&(
             <img 
                 src={listing.photo_url}
